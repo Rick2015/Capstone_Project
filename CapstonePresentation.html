@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CAPSTONE PROJECT</title>
+  <meta charset="utf-8">
+  <meta name="description" content="CAPSTONE PROJECT">
+  <meta name="author" content="Richard R.">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>CAPSTONE PROJECT</h1>
+    <h2>predict next-&gt;word app</h2>
+    <p>Richard R.<br/>24 April 2016</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Application Overview</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The &quot;predict next-&gt;word&quot; app can help reduce the amount of typing and typing errors on mobile devices.</li>
+<li>The app is based on N-Gram Language Models (LMs), where N is the number of words in a sequence.</li>
+<li>1-gram, 2-gram, and 3-gram LMs were trained against the <a href="https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip">Capstone English dataset</a> of the HC Corpora consisting of: 
+
+<ul>
+<li>Blogs posts</li>
+<li>News articles</li>
+<li>Twitter tweets</li>
+</ul></li>
+<li>The tokenization was based on the paper titled <a href="http://english.boisestate.edu/johnfry/files/2013/04/bigram-2x2.pdf">&quot;Bigrams and Trigrams&quot;</a>, by Mr. John Fry, Boise State University.<br></li>
+<li>The profanity filter uses the &quot;bad word&quot; list from <a href="www.FrontGateMedia.com">www.FrontGateMedia.com</a>.</li>
+<li>The spell checker is the Rasmus Baath&#39;s version of the <a href="http://www.sumsar.net/blog/2014/12/peter-norvigs-spell-checker-in-two-lines-of-r/">Peter Norvig spell checker</a>.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>The Algorithm</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The probabilities were calcualted using General Linear Interpolation (GLI) defined as:
+P(w3|w1 w2) = L1(h)*P3(w3|h) + L2(h)*P2(w2|h) + L3(h)*P1(w1|h)
+
+<ul>
+<li>Reference: <a href="https://lagunita.stanford.edu/c4x/Engineering/CS-224N/asset/slp4.pdf">&quot;Speech and Language Processing&quot;, page 16, figure 4.26 </a></li>
+</ul></li>
+<li>The GLI alogrithm is a combination of interpolation and &quot;back-off&quot; smoothing for unknown words. This makes lambdas conditional on the context (history - h) of previous lower order N-grams. This requires subsetting again to create a &quot;held-out&quot; set to train and find the lambdas(L1,L2,L3).</li>
+<li>The GLI used is based on the <a href="http://web.mit.edu/6.863/www/fall2012/lectures/lecture2&amp;3-notes12.pdf">MIT Natural Language Processing Notes</a>, page 19, Fall 2012.</li>
+<li>Grams (words) substited were:
+
+<ul>
+<li>Unknown = &lt;u&gt; token (Out of Vocabulary:oov)</li>
+<li>Begining of sentence = &lt;b&gt; token</li>
+<li>End of sentence = &lt;e&gt; token</li>
+<li>Numbers = &lt;n&gt; token</li>
+<li>Profanity = &lt;FilterON!&gt; token</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>How it Functions</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>It takes the last one, two ,or three words a user types/swipes/clicks in to search the LMs.</li>
+<li>It returns a word with the highest probability (on left) followed by four lower probability words. If the app cannot predict it defaults to the most common English word in the 1-gram LM, the word &quot;the.&quot;</li>
+<li>The app works on any device with connectivity to Shinyapps.io.</li>
+</ul>
+
+<p>INSTRUCTIONS</p>
+
+<ul>
+<li>INPUT: type english words and phrases into the first text box on top.</li>
+<li>OUTPUT: view predicted words in second text box. Check Profanity FilterON to toggle off.</li>
+</ul>
+
+<p>Access:</p>
+
+<ul>
+<li><a href="https://rick2015.shinyapps.io/Developing_Data_Products/">Shiny app - https://rick2015.shinyapps.io/Capstone_Project/</a></li>
+<li><a href="https://github.com/Rick2015/Developing-Data-Products/blob/master/ui.R">ui.R - https://github.com/Rick2015/Capstone_Project/blob/master/ui.R</a></li>
+<li><a href="https://github.com/Rick2015/Developing-Data-Products/blob/master/server.r">server.r - https://github.com/Rick2015/Capstone_Project/blob/master/server.r</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>How it Looks</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="./assets/PNW1.png" alt="pic1">
+<img src="./assets/PNW2.png" alt="pic2"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Application Overview'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='The Algorithm'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='How it Functions'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='How it Looks'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
