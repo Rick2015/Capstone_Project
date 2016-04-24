@@ -7,7 +7,7 @@ framework   : io2012  # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow       # {tomorrow, default}
 widgets     : []            # {mathjax, quiz, bootstrap}
-mode        : selfcontained # {standalone, draft}
+mode        : standalone # {standalone, draft}
 knit        : slidify::knit2slides
 
 ---
@@ -51,9 +51,9 @@ INSTRUCTIONS
 - OUTPUT: view predicted words in second text box. Check Profanity FilterON to toggle off.
 
 Access:
-- [Shiny app - https://rick2015.shinyapps.io/Capstone_Project/](https://rick2015.shinyapps.io/Developing_Data_Products/)
-- [ui.R - https://github.com/Rick2015/Capstone_Project/blob/master/ui.R](https://github.com/Rick2015/Developing-Data-Products/blob/master/ui.R)
-- [server.r - https://github.com/Rick2015/Capstone_Project/blob/master/server.r](https://github.com/Rick2015/Developing-Data-Products/blob/master/server.r)
+- [Shiny app - https://rick2015.shinyapps.io/Predict_Next_Word](https://rick2015.shinyapps.io/Predict_Next_Word)
+- [ui.R - https://github.com/Rick2015/Capstone_Project/blob/master/ui.R](https://github.com/Rick2015/Capstone_Project/blob/master/ui.R)
+- [server.r - https://github.com/Rick2015/Capstone_Project/blob/master/server.r](https://github.com/Rick2015/Capstone_Project/blob/master/server.r)
 
 ---
 

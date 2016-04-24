@@ -1,0 +1,7 @@
+name: Publish Document
+account: rpubs
+server: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/174333/329d6a3ac1af45338655a139ad6e836b
+bundleId: https://api.rpubs.com/api/v1/document/174333/329d6a3ac1af45338655a139ad6e836b
+url: http://rpubs.com/Rick2015/174333
+when: 1461447003.96282
